@@ -1,10 +1,11 @@
 class QueueJob
   @queue = :mqtt
 
-  def self.perform
-    MQTT::Client.connect('mqtt://sqkspljc:3NX3rRyb0Bl0@m20.cloudmqtt.com:13119') do |client|
+  def self.perform(user, password)
+    print(user)
+    MQTT::Client.connect('mqtt.relayr.io', :port => 1883, :username => user, :password => password) do |client|
       # If you pass a block to the get method, then it will loop
-      client.get('#') do |topic,message|
+      client.get("/v1/#{user}/#") do |topic,message|
         puts "#{topic}: #{message}"
       end
     end
