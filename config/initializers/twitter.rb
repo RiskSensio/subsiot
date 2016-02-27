@@ -1,4 +1,4 @@
-client = Twitter::REST::Client.new do |config|
+twitter = Twitter::REST::Client.new do |config|
   config.consumer_key = 'BLEAp7Hh1tvoR4lX20AGIrBn9'
   config.consumer_secret = 	'zB8dKrfTFmBkmTSpv1V74LkoUdSK6UrR2adoGjYP3YgTvi3eKb'
   config.access_token = '703567729215848448-QuCIS5Mg07O063wNRdRh3FSILNZv8qr'
