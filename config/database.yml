@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: subsiot_development
+
+test:
+  <<: *default
+  database: subsiot_test
+
+production:
+  <<: *default
+  database: subsiot_production
+  username: subsiot
+  password: <%= ENV['SUBSIOT_DATABASE_PASSWORD'] %>
