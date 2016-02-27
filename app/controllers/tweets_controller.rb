@@ -15,7 +15,4 @@ def index
 
 @list = client.home_timeline
 
-
-end 
-
 end
