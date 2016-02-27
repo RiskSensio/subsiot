@@ -28,6 +28,8 @@ gem 'dashing'
 
 # MQTT messaging
 gem 'mqtt'
+gem 'resque'
+gem 'resque-web'
 
 # :git => 'https://github.com/njh/ruby-mqtt.git'
 
