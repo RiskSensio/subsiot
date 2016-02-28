@@ -1,5 +1,5 @@
 require 'twitter'
-require 'pry'
+# require 'pry'
 require 'json'
 
 class QueueJob
@@ -13,7 +13,7 @@ class QueueJob
 
        hash = JSON.parse(message)
 
-       vibration_level = hash.find{|x| x["meaning"]=="vibration"}["value"]  
+       vibration_level = hash.find{|x| x["meaning"]=="vibration"}["value"]
 
        puts "#{topic}: #{message}"
 
@@ -24,7 +24,7 @@ class QueueJob
          config.access_token_secret = 'rLwx2s8gp3qa16EJ4r45vQc7xfk1Roc8675aY6ljgpRGe'
        end
 
-       case 
+       case
          when vibration_level >= 1000
            twitter.update("RED ALERT! wendychanhk your MyAvivaHome is shaking! AvivaUKSupport")
          when vibration_level >= 800
