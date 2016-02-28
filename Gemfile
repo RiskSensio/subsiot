@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.2.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
@@ -27,6 +28,10 @@ gem 'mqtt'
 gem 'resque'
 gem 'resque-web'
 gem 'json'
+
+# heroku suggestions
+gem 'rails_12factor'
+gem 'puma'
 
 # :git => 'https://github.com/njh/ruby-mqtt.git'
 
