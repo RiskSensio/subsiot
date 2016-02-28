@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- font -->
+    <%= stylesheet_link_tag 'application', media: 'all'%>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Niconne' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Leaflet CSS -->
+    <!-- <link rel="stylesheet" href="../../leaflet.css" />
+    <link rel="stylesheet" href="../assets/style.css" /> -->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+    </script>
+    <!-- <script type="text/javascript" src="../vendor/assets/javascripts/canvasjs-1.8.0/canvasjs.min.js"></script> -->
+</head>
+
+<body>
+    <!-- div to put the map in -->
+    <div class="header">
+        <div class="card">
+            <%= image_tag "sensio.png", :style => "max-width: 200px" %>
+        </div>
+    </div>
+    <div id="map" style="height: 450px;"></div>
+    <!--    Westminster Chart-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <div id="westminsterChart" style="height: 300px; width: 220px;">
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div id="fcaChart" style="height: 300px; width: 220px;">
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div id="dbChart" style="height: 300px; width: 220px;">
+                </div>
+
+            </div>
+            <div class="col-xs-2">
+                <div id="tflChart" style="height: 300px; width: 220px;">
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div id="britinsurChart" style="height: 300px; width: 220px;">
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div id="hoxtonChart" style="height: 300px; width: 220px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- include LeafletJS -->
+    <!-- <script src="leaflet/leaflet.js"></script> -->
+    <!-- for your eye pleasure add the toner map -->
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+    <!-- include RelayrJS -->
+    <script src="https://developer.relayr.io/relayr-browser-sdk.min.js"></script>
+    <script>
+        <!-- JAVASCRIPT CODE GOES HERE -->
+    </script>
+    <script>
+        // load the map and set the view to Aviva Offices
+        var map = new L.map('map').setView([51.5251289, -0.08157860000005712], 12);
+        //load the toner layer
+        var layer = new L.StamenTileLayer("toner-lite");
+        //add a layer
+        //        map.addLayer(layer);
+        //or add a tile layer get from Mapbox.com
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        //define an icon class
+        var CandleIcon = L.Icon.extend({
+            options: {
+                iconSize: [50, 50],
+                iconAnchor: [22, 94],
+                popupAnchor: [-3, -76]
+            }
+        });
+        //create icons
+        var candle1Icon = new CandleIcon({
+                iconUrl: "<%= asset_path "westminster.jpg" %>"
+            }),
+            candle2Icon = new CandleIcon({
+                iconUrl: "<%= asset_path "fca.png" %>"
+            }),
+            candle3Icon = new CandleIcon({
+                iconUrl: "<%= asset_path "db.png" %>"
+            });
+        candle4Icon = new CandleIcon({
+            iconUrl: "<%= asset_path "tfl.png" %>"
+        });
+        candle5Icon = new CandleIcon({
+            iconUrl: "<%= asset_path "abi.png" %>"
+        });
+        candle6Icon = new CandleIcon({
+            iconUrl: "<%= asset_path "crash.png" %>"
+        });
+        warningIcon = new CandleIcon({
+            iconUrl: "<%= asset_path "warning.png" %>"
+        });
+
+        //shortcut for easy naming
+        L.icon = function (options) {
+            return new L.Icon(options);
+        };
+        //set the marker and some random start values
+        //Westminster Cathedral
+        var candle1 = L.marker([51.495791, -0.13949219999994966], {
+            icon: candle1Icon
+        }).addTo(map).bindPopup("Westminster Cathedral");
+        //FCA Building
+        var candle2 = L.marker([51.50561740000001, -0.02005209999992985], {
+            icon: candle2Icon
+        }).addTo(map).bindPopup("Financial Conduct Authority Offices");
+        //Deutsche Bank
+        var candle3 = L.marker([51.5162643, -0.06466120000002775], {
+            icon: candle3Icon
+        }).addTo(map).bindPopup("Deutsche Bank Offices");
+        //Transport for London
+        var candle4 = L.marker([51.499518, -0.1350652999999511], {
+            icon: candle4Icon
+        }).addTo(map).bindPopup("TFL Development");
+        //Brit Insurance
+        var candle5 = L.marker([51.51543410000001, -0.0829890999999634], {
+            icon: candle5Icon
+        }).addTo(map).bindPopup('Brit Insurance Building');
+        //Hoxton Building
+        var candle6 = L.marker([51.530774, -0.075997], {
+            icon: candle6Icon
+        }).addTo(map).bindPopup('Hoxton Faultline</br><a href="https://goo.gl/maps/pwMwmHxpwYK2">Visit Google</a>');
+
+
+        //Relayr Credentials
+        var AppID = "f5cf0531-8830-4566-b751-44a1b2d9f71b";
+        var toke = "8Bn7zu.q0MkC_aoIGmHLSG_Ewq08VW4M";
+        var westminster = "452411b1-6b68-4fa6-b9f2-7c5d0b7b7c2d";
+        var fca = "7e5045b1-3bdd-49f2-8a8f-24740ca931b0";
+        var deutsche = "7f7f055a-7e7c-4cb6-8de1-404bd905fd81";
+        var tfl = "fa2bb0ad-7610-4eaa-b0ca-10a3bcec1767";
+        var britinsur = "818ec1c6-6c0f-4faf-84e4-57036d53d55e";
+        var hoxton = "b3f3ce5b-770c-408d-9536-36c0599f4f7d";
+
+
+        var relayr = RELAYR.init({
+            appId: AppID
+        });
+
+        var yVal = 0,
+            xVal = 0,
+            dataLength = 500;
+        var westtemps = []; // dataPoints
+        var westvibs = [];
+        var fcatemps = []; // dataPoints
+        var fcavibs = [];
+        var deutemps = []; // dataPoints
+        var deuvibs = [];
+        var tfltemps = []; // dataPoints
+        var tflvibs = [];
+        var brittemps = []; // dataPoints
+        var britvibs = [];
+        var hoxtemps = []; // dataPoints
+        var hoxvibs = [];
+
+        var westchart = new CanvasJS.Chart("westminsterChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "Westminster Cathedral",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: westtemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: westvibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: westminster,
+            incomingData: function (data) {
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[1].meaning);
+                console.log(data.readings[1].value);
+                tempVal = data.readings[0].value;
+                vibVal = data.readings[1].value;
+                westvibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                westtemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (westtemps.length > dataLength) {
+                    westtemps.shift();
+                }
+                westchart.render()
+                return data.readings[0].value;
+            }
+        });
+
+        //door
+        var fcachart = new CanvasJS.Chart("fcaChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "FCA Building",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: fcatemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: fcavibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: fca,
+            incomingData: function (data) {
+                //                console.log(candle5);
+                if (data.readings[0].value) {
+                    candle2.setIcon(warningIcon);
+                } else {
+                    candle2.setIcon(candle2Icon);
+                }
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+                fcavibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                fcatemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (fcatemps.length > dataLength) {
+                    fcatemps.shift();
+                }
+                fcachart.render()
+                return data.readings[3].value;
+            }
+        });
+
+        var deuchart = new CanvasJS.Chart("dbChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "Deutsche Bank Building",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: deutemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: deuvibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: deutsche,
+            incomingData: function (data) {
+                if (data.readings[0].value) {
+                    candle3.setIcon(warningIcon);
+                } else {
+                    candle3.setIcon(candle3Icon);
+                }
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+                deuvibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                deutemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (deutemps.length > dataLength) {
+                    deutemps.shift();
+                }
+                deuchart.render()
+                return data.readings[3].value;
+            }
+        });
+
+        var tflchart = new CanvasJS.Chart("tflChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "TFL Building",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: tfltemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: tflvibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: tfl,
+            incomingData: function (data) {
+                if (data.readings[0].value) {
+                    candle4.setIcon(warningIcon);
+                } else {
+                    candle4.setIcon(candle4Icon);
+                }
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+                tflvibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                tfltemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (tfltemps.length > dataLength) {
+                    tfltemps.shift();
+                }
+                tflchart.render()
+                return data.readings[3].value;
+            }
+        });
+
+        var britchart = new CanvasJS.Chart("britinsurChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "British Insurance Building",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: brittemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: britvibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: britinsur,
+            incomingData: function (data) {
+                if (data.readings[0].value) {
+                    candle5.setIcon(warningIcon);
+                } else {
+                    candle5.setIcon(candle5Icon);
+                }
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+                britvibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                brittemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (brittemps.length > dataLength) {
+                    brittemps.shift();
+                }
+                britchart.render()
+                return data.readings[3].value;
+            }
+        });
+
+        var hoxtonchart = new CanvasJS.Chart("hoxtonChart", {
+            //            backgroundColor: "#f2f2f2",
+            title: {
+                text: "Real Hoxton Building",
+                fontFamily: "Roboto",
+                fontSize: 12
+            },
+            axisY2: {
+                includeZero: false,
+                title: "Building Vibrations",
+                titleFontSize: 10
+            },
+            axisY: {
+                title: "Humidity",
+                titleFontSize: 10
+            },
+            data: [
+                {
+                    type: "line",
+                    dataPoints: hoxtemps
+                },
+                {
+                    type: "line",
+                    axisYType: "secondary",
+                    dataPoints: hoxvibs
+                }
+            ]
+        });
+        relayr.devices().getDeviceData({
+            token: toke,
+            deviceId: hoxton,
+            incomingData: function (data) {
+                if (data.readings[0].value) {
+                    candle6.setIcon(warningIcon);
+                } else {
+                    candle6.setIcon(candle6Icon);
+                }
+                console.log(data.readings[0].meaning);
+                console.log(data.readings[0].value);
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+                hoxvibs.push({
+                    x: xVal,
+                    y: vibVal
+                });
+                hoxtemps.push({
+                    x: xVal,
+                    y: tempVal
+                });
+                xVal++;
+
+                if (hoxtemps.length > dataLength) {
+                    hoxtemps.shift();
+                }
+                hoxtonchart.render()
+                return data.readings[3].value;
+            }
+        });
+    </script>
+
+</body>
