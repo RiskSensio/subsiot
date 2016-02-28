@@ -77,6 +77,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    high_voltage (2.4.0)
     http (1.0.2)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -255,6 +256,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   dashing
+  high_voltage
   jbuilder (~> 2.0)
   jquery-rails
   json

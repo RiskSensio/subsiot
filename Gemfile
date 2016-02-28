@@ -33,6 +33,9 @@ gem 'json'
 gem 'rails_12factor'
 gem 'puma'
 
+# Static pages
+gem 'high_voltage'
+
 # :git => 'https://github.com/njh/ruby-mqtt.git'
 
 
