@@ -1,7 +1,3 @@
-require 'twitter'
-# require 'pry'
-require 'json'
-
 class QueueJob
   @queue = :mqtt
 

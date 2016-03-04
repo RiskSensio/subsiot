@@ -206,10 +206,20 @@
             incomingData: function (data) {
                 console.log(data.readings[0].meaning);
                 console.log(data.readings[0].value);
-                console.log(data.readings[1].meaning);
-                console.log(data.readings[1].value);
-                tempVal = data.readings[0].value;
-                vibVal = data.readings[1].value;
+                console.log(data.readings[3].meaning);
+                console.log(data.readings[3].value);
+                console.log(data.readings[2].meaning);
+                console.log(data.readings[2].value);
+                tempVal = data.readings[3].value;
+                vibVal = data.readings[2].value;
+
+                // This was for the real sensor - patch to simulation
+                // console.log(data.readings[0].meaning);
+                // console.log(data.readings[0].value);
+                // console.log(data.readings[1].meaning);
+                // console.log(data.readings[1].value);
+                // tempVal = data.readings[0].value;
+                // vibVal = data.readings[1].value;
                 westvibs.push({
                     x: xVal,
                     y: vibVal

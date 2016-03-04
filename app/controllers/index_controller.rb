@@ -1,8 +1,11 @@
 require 'twitter'
 
-class TweetsController < ApplicationController
+class IndexController < ApplicationController
   def index
-    link_to 'About', page_path('about')
+    SimulateSensor.start
+
+    redirect_to page_path('candle')
+
    #  client = Twitter::REST::Client.new do |config|
    #   config.consumer_key = 'BLEAp7Hh1tvoR4lX20AGIrBn9'
    #   config.consumer_secret = 	'zB8dKrfTFmBkmTSpv1V74LkoUdSK6UrR2adoGjYP3YgTvi3eKb'
