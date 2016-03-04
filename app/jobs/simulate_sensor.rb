@@ -6,9 +6,11 @@ class SimulateSensor
 
       sensor_hash[:temperature] = 7.0 + 20 * rand unless sensor_hash.key?(:temperature)
       sensor_hash[:temperature] +=  0.1 * rand - 0.05
+      sensor_hash[:temperature] = 0.0 if sensor_hash[:temperature] < 0.0
 
       sensor_hash[:humidity] = 40.0 * rand unless sensor_hash.key?(:humidity)
-      sensor_hash[:temperature] += rand - 0.5
+      sensor_hash[:humidity] += rand - 0.5
+      sensor_hash[:humidity] = 0.0 if sensor_hash[:humidity] < 0.0
 
       if sensor_hash.key?(:motion) && sensor_hash[:motion]
         # 50% change of quake continuing
