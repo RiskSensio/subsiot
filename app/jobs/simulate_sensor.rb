@@ -15,7 +15,7 @@ class SimulateSensor
         sensor_hash[:motion] = rand * 100 > 50
       else
         # 5% change of quake starting
-        sensor_hash[:motion] = rand * 100 > 90
+        sensor_hash[:motion] = rand * 100 > 95
       end
 
       if sensor_hash[:motion]
@@ -61,6 +61,8 @@ class SimulateSensor
   end
 
   def self.start
+    # Kill any old jobs
+    Resque.redis.del "queue:mqtt"
     # Simulate estimote sensors
     Resque.enqueue(SimulateSensor, 'fa2bb0ad-7610-4eaa-b0ca-10a3bcec1767', '7eLjm5NYB9De', 1000, {})
     Resque.enqueue(SimulateSensor, 'b3f3ce5b-770c-408d-9536-36c0599f4f7d', 'IpjPtR0cq69A', 1000, {})
