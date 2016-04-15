@@ -142,14 +142,14 @@
 
 
         //Relayr Credentials
-        var AppID = "f5cf0531-8830-4566-b751-44a1b2d9f71b";
-        var toke = "8Bn7zu.q0MkC_aoIGmHLSG_Ewq08VW4M";
-        var westminster = "452411b1-6b68-4fa6-b9f2-7c5d0b7b7c2d";
-        var fca = "7e5045b1-3bdd-49f2-8a8f-24740ca931b0";
-        var deutsche = "7f7f055a-7e7c-4cb6-8de1-404bd905fd81";
-        var tfl = "fa2bb0ad-7610-4eaa-b0ca-10a3bcec1767";
-        var britinsur = "818ec1c6-6c0f-4faf-84e4-57036d53d55e";
-        var hoxton = "b3f3ce5b-770c-408d-9536-36c0599f4f7d";
+        var AppID = "27218c2c-c659-4466-ac71-ec1f942dfab0";
+        var toke = "d3pFADFsNAC7.0WChHtZZSe1MPO6bmXh";
+        var westminster = "db57d5fa-bd4c-49c4-b0bf-62dc3e76ef84";
+        var fca = "fddd8173-2a23-478f-b165-f0fc4e127ab2";
+        var deutsche = "0ff32a44-6bd8-4aad-bef7-9327887e8003";
+        var tfl = "ebff6be5-c141-42e8-a892-d16f9f7c2e7a";
+        var britinsur = "aa8c2b64-35f2-4939-8798-7d3a48f814f8";
+        var hoxton = "82342961-c1f4-41e5-86fa-54dd17138695";
 
 
         var relayr = RELAYR.init({
@@ -182,11 +182,13 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -210,7 +212,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
 
                 // This was for the real sensor - patch to simulation
@@ -218,7 +220,7 @@
                 // console.log(data.readings[0].value);
                 // console.log(data.readings[1].meaning);
                 // console.log(data.readings[1].value);
-                // tempVal = data.readings[0].value;
+                // humidVal = data.readings[0].value;
                 // vibVal = data.readings[1].value;
                 westvibs.push({
                     x: xVal,
@@ -226,7 +228,7 @@
                 });
                 westtemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
@@ -249,11 +251,13 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -283,7 +287,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
                 fcavibs.push({
                     x: xVal,
@@ -291,7 +295,7 @@
                 });
                 fcatemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
@@ -313,11 +317,14 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
+
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -346,7 +353,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
                 deuvibs.push({
                     x: xVal,
@@ -354,7 +361,7 @@
                 });
                 deutemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
@@ -376,11 +383,13 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -409,7 +418,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
                 tflvibs.push({
                     x: xVal,
@@ -417,7 +426,7 @@
                 });
                 tfltemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
@@ -439,11 +448,13 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -472,7 +483,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
                 britvibs.push({
                     x: xVal,
@@ -480,7 +491,7 @@
                 });
                 brittemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
@@ -502,11 +513,13 @@
             axisY2: {
                 includeZero: false,
                 title: "Building Vibrations",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 1500
             },
             axisY: {
                 title: "Humidity",
-                titleFontSize: 10
+                titleFontSize: 10,
+                maximum: 100
             },
             data: [
                 {
@@ -535,7 +548,7 @@
                 console.log(data.readings[3].value);
                 console.log(data.readings[2].meaning);
                 console.log(data.readings[2].value);
-                tempVal = data.readings[3].value;
+                humidVal = data.readings[4].value;
                 vibVal = data.readings[2].value;
                 hoxvibs.push({
                     x: xVal,
@@ -543,7 +556,7 @@
                 });
                 hoxtemps.push({
                     x: xVal,
-                    y: tempVal
+                    y: humidVal
                 });
                 xVal++;
 
