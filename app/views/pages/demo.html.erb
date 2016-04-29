@@ -143,7 +143,7 @@
 
         //Relayr Credentials
         var AppID = "27218c2c-c659-4466-ac71-ec1f942dfab0";
-        var toke = "d3pFADFsNAC7.0WChHtZZSe1MPO6bmXh";
+        var toke = "vs82WgmPB_dEQv6JamlbwrGB-Bzpsj3L";
         var westminster = "db57d5fa-bd4c-49c4-b0bf-62dc3e76ef84";
         var fca = "fddd8173-2a23-478f-b165-f0fc4e127ab2";
         var deutsche = "0ff32a44-6bd8-4aad-bef7-9327887e8003";
@@ -207,9 +207,9 @@
             deviceId: westminster,
             incomingData: function (data) {
                 if (data.readings[0].value) {
-                    candle2.setIcon(warningIcon);
+                    candle1.setIcon(warningIcon);
                 } else {
-                    candle2.setIcon(candle1Icon);
+                    candle1.setIcon(candle1Icon);
                 }
                 console.log(data.readings[0].meaning);
                 console.log(data.readings[0].value);
