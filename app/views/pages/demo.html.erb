@@ -186,7 +186,7 @@
                 maximum: 1500
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
@@ -206,6 +206,11 @@
             token: toke,
             deviceId: westminster,
             incomingData: function (data) {
+                if (data.readings[0].value) {
+                    candle2.setIcon(warningIcon);
+                } else {
+                    candle2.setIcon(candle1Icon);
+                }
                 console.log(data.readings[0].meaning);
                 console.log(data.readings[0].value);
                 console.log(data.readings[3].meaning);
@@ -255,7 +260,7 @@
                 maximum: 1500
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
@@ -322,7 +327,7 @@
 
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
@@ -387,7 +392,7 @@
                 maximum: 1500
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
@@ -452,7 +457,7 @@
                 maximum: 1500
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
@@ -517,7 +522,7 @@
                 maximum: 1500
             },
             axisY: {
-                title: "Humidity",
+                title: "Am noise",
                 titleFontSize: 10,
                 maximum: 100
             },
