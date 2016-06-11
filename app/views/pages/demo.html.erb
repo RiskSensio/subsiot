@@ -18,7 +18,6 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript">
     </script>
-    <!-- <script type="text/javascript" src="../vendor/assets/javascripts/canvasjs-1.8.0/canvasjs.min.js"></script> -->
 </head>
 
 <body>
@@ -64,7 +63,6 @@
     <!-- for your eye pleasure add the toner map -->
     <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
     <!-- include RelayrJS -->
-    <script src="https://developer.relayr.io/relayr-browser-sdk.min.js"></script>
     <script>
         <!-- JAVASCRIPT CODE GOES HERE -->
     </script>
@@ -143,7 +141,7 @@
 
         //Relayr Credentials
         var AppID = "27218c2c-c659-4466-ac71-ec1f942dfab0";
-        var toke = "vs82WgmPB_dEQv6JamlbwrGB-Bzpsj3L";
+        var toke = "s6sB7WNPST9zUiPJPNlN0NQdSycUJej8";
         var westminster = "db57d5fa-bd4c-49c4-b0bf-62dc3e76ef84";
         var fca = "fddd8173-2a23-478f-b165-f0fc4e127ab2";
         var deutsche = "0ff32a44-6bd8-4aad-bef7-9327887e8003";
@@ -153,7 +151,8 @@
 
 
         var relayr = RELAYR.init({
-            appId: AppID
+            appId: AppID,
+            // redirectUri: "http://localhost:3000/pages/demo"
         });
 
         var yVal = 0,
